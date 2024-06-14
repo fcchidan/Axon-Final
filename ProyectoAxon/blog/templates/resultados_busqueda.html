@@ -1,0 +1,52 @@
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block content %}
+<div class="titulo-buscador">
+    <h1>Resultados de Búsqueda para "{{ query }}"</h1>
+</div>
+
+<div class="busqueda-contenedor">
+    {% if resultados_pagina %}
+        <div class="imagenes-busqueda">
+            {% for producto in resultados_pagina %}
+                <div class="producto-item">
+                    <a href="{% url 'producto' producto.id %}">
+                        <img src="{{ producto.imagen.url }}" alt="Imagen">
+                    </a>
+                    <p class="nombre-producto-busqueda">{{ producto.titulo }}</p>
+                    <p class="busqueda-precio">${{ producto.precio|floatformat:"0"|add_decimal_separator }}</p>
+                </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <p>No se encontraron resultados para "{{ query }}".</p>
+    {% endif %}
+</div>
+
+<div class="pagination">
+    <span class="step-links">
+        {% if resultados_pagina.has_previous %}
+            <a href="?q={{ query }}&page=1">&laquo; Primera</a>
+            <a href="?q={{ query }}&page={{ resultados_pagina.previous_page_number }}">Anterior</a>
+        {% endif %}
+        
+        <span class="current">
+            Página {{ resultados_pagina.number }} de {{ resultados_pagina.paginator.num_pages }}.
+        </span>
+        
+        {% if resultados_pagina.has_next %}
+            <a href="?q={{ query }}&page={{ resultados_pagina.next_page_number }}">Siguiente</a>
+            <a href="?q={{ query }}&page={{ resultados_pagina.paginator.num_pages }}">Última &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+<div class="link-volver-busqueda">
+    <a href="{% url 'inicio' %}">Volver al inicio</a>
+</div>
+{% endblock %}
+
+
+

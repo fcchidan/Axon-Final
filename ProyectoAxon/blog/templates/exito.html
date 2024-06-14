@@ -1,0 +1,19 @@
+<!-- templates/exito.html -->
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load custom_filters %}
+
+{% block title %} Éxito {% endblock %}
+
+{% block content %}
+<div class="content-exito">
+    <h1>¡Orden enviada con éxito!</h1>
+    <p>Tu correo ha sido enviado correctamente. Aquí están los detalles de tu orden:</p>
+    <ul>
+        <p><strong>ID de la Orden:</strong> {{ orden.id }}</p>
+        <p><strong>Fecha:</strong> {{ orden.fecha_creacion }}</p>
+        <p><strong>Total:</strong> ${{ orden.precio_total|floatformat:"0"|add_decimal_separator }}</p>
+    </ul>
+    <p>Nos pondremos en contacto contigo en breve!!</p>
+</div>
+{% endblock %}

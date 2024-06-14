@@ -1,0 +1,21 @@
+{% load static %}
+{% load humanize %}
+{% load custom_filters %}
+<div class="titulo-ultimos-productos">
+    <h1>ÚLTIMOS PRODUCTOS</h1>
+</div>
+
+<div class="productos-container">
+    <div class="productos-inner">
+        {% for producto in ultimos_productos %}
+        <div class="ultimos-producto">
+            <h3>{{ producto.titulo }}</h3>
+            <a href="{% url 'producto' producto.id %}">
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.titulo }}">
+            </a>
+            <p class="descripcion">{{ producto.contenido }}</p>
+            <p class="precio-ultimos">${{ producto.precio|floatformat:"0"|add_decimal_separator }}</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>

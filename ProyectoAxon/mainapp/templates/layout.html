@@ -1,0 +1,170 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--Iconos FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <title>
+        {% block title %}
+
+        {% endblock %}
+        | Axon ingeniería eléctrica
+    </title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    <script>
+        // Guardar la posición del scroll en localStorage antes de recargar la página
+        window.addEventListener('beforeunload', function() {
+            localStorage.setItem('scrollPosition', window.scrollY);
+        });
+
+        // Restaurar la posición del scroll desde localStorage cuando la página se carga
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('scrollPosition') !== null) {
+                window.scrollTo(0, parseInt(localStorage.getItem('scrollPosition')));
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <!--Agregar numero whatsapp-->
+    <a href="https://wa.me/56931769792?text=Hola, quiero información de sus productos" target="_blank" class="float"><i class="fa-brands fa-whatsapp"></i></a>
+    
+    <header>
+        
+        <div id="logotipo">
+            <a href="/inicio"><img src="{% static 'images/iconos/logo-Axon.png' %}" alt="Imagen Axon logo"></a>
+            
+            <nav>
+                <ul>
+                    {% if user.email %}
+                        <li>
+                            
+                            <a href="{% url 'ver_carrito' %}">
+                                <i class="fa-solid fa-bag-shopping"></i>
+                                Carrito {% if total_productos_carrito > 0 %}({{ total_productos_carrito }}){% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{% url 'logout' %}">Cerrar sesión</a>
+                        </li>
+                    {% else %}
+                        <li>
+                            <a href="{% url 'registro' %}">Registro</a>
+                        </li>
+                        <li>
+                            <a href="{% url 'login' %}">Login</a>
+                        </li>
+                        
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+        {% include 'busqueda.html' %}
+        <hr>
+    </header>
+    <nav>
+        <ul>
+            <li class="dropdown">
+                <input type="checkbox" id="dropdown-toggle" class="dropdown-checkbox">
+                <label for="dropdown-toggle" class="dropbtn">
+                    <i class="fa-solid fa-bars"></i> CATEGORIAS
+                </label>
+                <ul class="dropdown-content">
+                    {% for i in categorias %}
+                        <li>
+                            <a href="{% url 'categoria' i.0 %}">{{ i.1 }}</a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </li>
+            </li>
+            <li>
+                <a href="{% url 'inicio' %}">INICIO</a>
+            </li>
+            <li>
+                <a href="{% url 'productos' %}">PRODUCTOS</a>
+            </li>
+            <li>
+                <a href="{% url 'contacto' %}">CONTACTO</a>
+            </li>
+            <li>
+                <a href="{% url 'empresa' %}">EMPRESA</a>
+            </li>
+            <li>
+                <a href="{% url 'representacion' %}">REPRESENTACION</a>
+            </li>
+            <li>
+                <a href="{% url 'clientes' %}">CLIENTES</a>
+            </li>
+            <li>
+                <a href="{% url 'servicios' %}">SERVICIOS</a>
+            </li>
+            {% for page in pages %}
+                <li>
+                    <a href="{% url 'page' page.1 %}">{{page.0}}</a>
+                </li>
+            {% endfor %}
+
+        </ul>
+    </nav>
+    <div id="content">
+        <div class="box">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </div>
+
+    <footer class="pie-pagina">
+        <div class="grupo-1">
+            <div class="box1">
+                <h2>Categorías</h2>
+                <h4>Destacados</h4>
+                <h4>Novedades</h4>
+                <h4>Seleccionados</h4>
+            </div>
+            <div class="box1">
+                <h2>Contáctanos</h2>
+                <h4>LLÁMANOS AL</h4>
+                <h4><i class="fa-solid fa-mobile-screen-button"></i> +56 9 5136 5520</h4>
+            </div>
+            <div class="box1">
+                <h2>Formas de pago</h2>
+                <h4>Tarjetas Crédito / Debito</h4>
+                <h4>Transferencia bancaria</h4>
+                <div class="pago">
+                    <img src="{% static 'images/iconos/pago_webpay_w.png' %}" alt="Logo WebPay">
+                </div>
+            </div>
+            <div class="box1">
+                <h2>Información</h2>
+                <a href="/empresa">
+                    <h4>Sobre nosotros</h4>
+                </a>
+                <a href="/productos">
+                    <h4>Nuestros productos</h4>
+                </a>
+                <a href="/contacto">
+                    <h4>Formulario de Contacto</h4>
+                </a>
+            </div>
+            <div class="red-social">
+                <h2>Síguenos</h2>
+                <div class="contenedor">
+                    <i class="fa-brands fa-facebook"></i>
+                    <i class="fa-brands fa-instagram"></i>
+                    <i class="fa-brands fa-whatsapp"></i>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="grupo-2">
+            <b>Axon ingeniería eléctrica &copy; {% now 'Y' %}</b>
+        </div>
+    </footer>
+</body>
+
+</html>

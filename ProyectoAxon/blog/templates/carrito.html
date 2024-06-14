@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %} Axon {% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@10">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+<div class="carrito">
+    <h2>Carrito de Compras</h2>
+    {% for elemento in elementos_carrito %}
+        <div class="producto">
+            <img src="{{ elemento.producto.imagen.url }}" alt="{{ elemento.producto.titulo }}">
+            <div class="producto-info">
+                <h3 class="producto-nombre">{{ elemento.producto.titulo }}</h3>
+                <p class="producto-precio">Precio: ${{ elemento.producto.precio|floatformat:"0"|add_decimal_separator }}</p>
+                <p>Cantidad: {{ elemento.cantidad }}</p>
+                <div class="boton-mas-menos">
+                    <form method="POST" action="{% url 'disminuir_cantidad' elemento.id %}" class="btn-disminuir">
+                        {% csrf_token %}
+                        <button type="submit"><</button>
+                    </form>
+                    <form method="post" action="{% url 'aumentar_cantidad' elemento.id %}" class="btn-aumentar">
+                        {% csrf_token %}
+                        <button type="submit" >></button>
+                    </form>
+                </div>
+                <div class="boton-eliminar">
+                    <form method="POST" action="{% url 'eliminar_del_carrito' elemento.id %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn-eliminar" onclick="return confirmarEliminacion(event)">Eliminar</button>
+                    </form>
+                </div>
+                
+            </div>
+        </div>
+    {% endfor %}
+    <p><strong>Total del Carrito: ${{ total_carrito|floatformat:"0"|add_decimal_separator }}</strong></p>
+</div>
+<div class="acciones">
+    {% if total_productos_carrito > 0 %}
+        <a href="{% url 'vaciar_carrito' %}" onclick="return mostrarMensaje(event)">Vaciar Carrito</a>
+        <div class="mensaje-script">
+            <script>
+                function mostrarMensaje(event) {
+                    event.preventDefault(); // Evitar que el enlace se siga automáticamente
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, vaciar carrito',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Aquí puedes agregar la lógica para vaciar el carrito
+                            Swal.fire(
+                                '¡Vacio!',
+                                'Tu carrito ha sido vaciado.',
+                                'success'
+                            ).then(() => {
+                                window.location.href = event.target.href; // Redirigir al usuario después de confirmar
+                            });
+                        }
+                    });
+
+                    return false; // Devolver false para evitar que el enlace se siga
+                }
+
+                function confirmarEliminacion(event) {
+                    event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+                    Swal.fire({
+                        title: '¿Estás seguro?',
+                        text: 'El producto será eliminado del carrito.',
+                        icon: 'warning',
+                        showCancelButton: true,
+                        confirmButtonColor: '#3085d6',
+                        cancelButtonColor: '#d33',
+                        confirmButtonText: 'Sí, eliminar',
+                        cancelButtonText: 'Cancelar'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            // Enviar el formulario si se confirma la eliminación
+                            event.target.closest('form').submit();
+                        }
+                    });
+
+                    return false; // Devolver false para evitar que el formulario se envíe automáticamente
+                }
+            </script>
+        </div>
+    {% else %}
+        <span>Carrito vacío</span>
+    {% endif %}
+
+    {% if total_productos_carrito > 0 %}
+        <a href="{% url 'realizar_orden' %}">Realizar Orden</a>
+    {% else %}
+        <span>No hay productos en el carrito para realizar la orden.</span>
+    {% endif %}
+</div>
+{% endblock %}
+

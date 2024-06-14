@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %} {{categoria.nombre}} {% endblock %}
+
+{% block content %}
+<div class="categorias-desplegable">
+    <h1 class="title"> {{categoria.nombre}} </h1>
+    <p>{{categoria.descripcion}}</p>
+</div>
+
+    {% include "lista.html" %}
+    <div class="pagination">
+        <span class="step-links">
+            {% if productos.has_previous %}
+                <a href="?page=1">&laquo; Primera</a>
+                <a href="?page={{ productos.previous_page_number }}">Anterior</a>
+            {% endif %}
+    
+            <span class="current">
+                Página {{ productos.number }} de {{ productos.paginator.num_pages }}.
+            </span>
+    
+            {% if productos.has_next %}
+                <a href="?page={{ productos.next_page_number }}">Siguiente</a>
+                <a href="?page={{ productos.paginator.num_pages }}">Última &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+
+{% endblock %}

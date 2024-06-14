@@ -1,0 +1,11 @@
+{% extends 'layout.html' %}
+
+{% block title %} {{producto.nombre}} {% endblock %}
+
+{% block content %}
+    <h1 class="title">{{producto.titulo}}</h1>
+    {% include "lista.html" %}
+    {% include 'pagination.html' %}
+
+{% endblock %}
+

@@ -1,0 +1,38 @@
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load custom_filters %}
+{% block title %} {{producto.titulo}} {% endblock %}
+
+{% block content %}
+    <div class="imagen-prosuctosolo">
+        {% if producto.imagen != 'null' and producto.imagen.url|length >= 1 %}
+        <div class="image">
+            <img src="{{producto.imagen.url}}" alt="Imagen">
+        </div>
+    {% endif %}
+    </div>
+    
+    <div class="productosolo">
+        <h1>{{producto.titulo}}</h1>
+        <p>
+            {{producto.contenido|safe}}
+        </p>
+    </div>
+    
+    
+    <strong>Precio: ${{producto.precio|floatformat:"0"|add_decimal_separator}}</strong>
+    {% if user.is_authenticated %}
+    <form id="agregar-carrito-form" action="{% url 'agregar_al_carrito' producto.id %}" method="post">
+        {% csrf_token %}
+        <button id="agregar-carrito-btn" type="submit">Agregar al carrito</button>
+    </form>
+    {% else %}
+    <div class="mensaje-productosolo">
+        <h1>Inicia sesión para agregar este producto al carrito.</h1>
+    </div>
+        
+    {% endif %}
+
+    
+{% endblock %}
+

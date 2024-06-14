@@ -1,0 +1,32 @@
+{% load humanize %}
+{% load custom_filters %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Nueva Orden</title>
+</head>
+<body>
+    <h2>Nueva Orden Generada</h2>
+    <p>Se ha generado una nueva orden con los siguientes detalles:</p>
+    <ul>
+        <li>Orden ID: {{ orden.id }}</li>
+        <li>Usuario: {{ orden.usuario.first_name }} {{orden.usuario.last_name}}</li>
+        <li>Total: ${{ orden.precio_total|floatformat:"0"|add_decimal_separator }}</li>
+        <li>Fecha de creación: {{ orden.fecha_creacion }}</li>
+    </ul>
+    <h3>Productos:</h3>
+    <ul>
+        {% for elemento in elementos %}
+            <li>{{ elemento.cantidad }} x {{ elemento.producto.titulo }} - ${{ elemento.subtotal|floatformat:"0"|add_decimal_separator }}</li>
+        {% endfor %}
+    </ul>
+    <h2>Datos del lugar de entrega</h2>
+    <ul>
+        <li>Dirección: {{ orden.direccion_envio.direccion }}</li>
+        <li>Ciudad: {{ orden.direccion_envio.ciudad }}</li>
+        <li>Código Postal: {{ orden.direccion_envio.codigo_postal }}</li>
+        <li>Teléfono: {{ orden.direccion_envio.telefono }}</li>
+        <li>Correo: {{ orden.direccion_envio.correo }}</li>
+    </ul>
+</body>
+</html>

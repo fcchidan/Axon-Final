@@ -1,0 +1,42 @@
+{% for i in productos %}
+{% load humanize %}
+{% load custom_filters %}
+<div class="productos">
+    <div class="data1">
+        {% if i.imagen != 'null' and i.imagen.url|length >= 1 %}
+        <div class="image">
+            <img src="{{i.imagen.url}}" alt="Imagen">
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="data2">
+        <h2>
+            <a href="{% url 'producto' i.id %}">{{i.titulo}}</a>
+        </h2>
+        <hr>
+        <p class="categorias">
+            {% for x in i.categorias.all %}
+            <a href="{% url 'categoria' x.id %}">{{x}}</a>
+            {% if forloop.counter < i.categorias.all|length %} - {% endif %}
+            {% endfor %}
+        </p>
+        <span class="fecha">{{i.creado}}</span>
+        <p class="contenido">
+            {{i.contenido|safe}}
+        </p>
+        <div class="precio-agregar">
+            <strong>Precio: ${{ i.precio|floatformat:"0"|add_decimal_separator }}</strong>
+            {% if user.is_authenticated %}
+            <form action="{% url 'agregar_al_carrito' i.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Agregar al carrito">
+            </form>
+            {% else %}
+            <p class="mensaje">Inicia sesión para agregar este producto al carrito.</p>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endfor %}

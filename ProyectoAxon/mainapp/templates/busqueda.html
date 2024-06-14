@@ -1,0 +1,24 @@
+{% load humanize %}
+{% load custom_filters %}
+<div class="buscar-contenedor">
+    <form method="GET" action="{% url 'buscar_productos' %}" class="search-form">
+        <input type="text" name="q" placeholder="Buscar..." value="{{ query }}">
+        <button type="submit"><i class="fas fa-search"></i></button>
+    </form>
+    <div class="resultados">
+        {% if mensaje %}
+            <p>{{ mensaje }}</p>
+        {% else %}
+            {% if query %}
+                {% if resultados %}
+                    
+                {% else %}
+                    <p>No se encontraron resultados.</p>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+</div>
+
+
+

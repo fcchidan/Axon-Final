@@ -1,0 +1,118 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %} Inicio {% endblock %}
+
+{% block content %}
+    
+    {% if messages %}
+        {% for i in messages %}
+            <div class="alert alert-success">
+                {{i}}
+            </div>
+        {% endfor %}
+    {% endif %}   
+    
+    {% if user.email %}
+        <h2>Bienvenido {{request.user.first_name}}</h2>
+    {% else %}
+        <h1></h1>
+    {% endif %}
+    <!--Iconos FontAwesome-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <div class="box1">
+        <div class="slider-box">
+            <ul>
+                <li>
+                    <img src="{% static 'images/jpg/prisma.png' %}" alt="Imagen Prisma" class="sobresaliente">
+                </li>
+                <li>
+                    <img src="{% static 'images/jpg/laetus.png' %}" alt="Imagen Laetus" class="sobresaliente">
+                </li>
+                <li>
+                    <img src="{% static 'images/jpg/UES.png' %}" alt="Imagen UES" class="sobresaliente">
+                </li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="box2">
+        <div class="info">
+            <li class="info1">
+                <i class="fa-solid fa-phone"></i>
+                <h3>LLÁMENOS AL</h3>
+                <P>+56 9 5136 5520</P>
+            </li>
+            <li class="info2">
+                <i class="fa-solid fa-envelope"></i>
+                <h3>ESCRÍBANOS A</h3>
+                <P>contacto@axoningenieria.cl</P>
+            </li>
+            <li class="info3">
+                <i class="fa-solid fa-comment-dollar"></i>
+                <h3>PRESUPUESTOS</h3>
+                <a href="{% url 'contacto' %}"><p>Cotice con nosotros</p></a>
+                
+            </li>
+        </div>
+    </div>
+    {% include 'ultimas_imagenes.html' %}
+
+    <div class="content-img3">
+        <div class="box3">
+            <div class="box3-1">
+                <img src="{% static 'images/jpg/serv-Ingenieria.webp' %}" alt="Imagen">
+                <div class="overlay">
+                    <p>Ingeniería Eléctrica</p>
+                    <a href="{% url 'contacto' %}" class="overlay-text">Cotizar</a>
+                </div>
+            </div>
+            <div class="box3-1">
+                <img src="{% static 'images/jpg/laetus1.png' %}" alt="Imagen">
+                <div class="overlay">
+                    <p>Automatización y Control</p>
+                    <a href="{% url 'contacto' %}" class="overlay-text">Cotizar</a>
+                </div>
+            </div>
+            <div class="box3-1">
+                <img src="{% static 'images/jpg/banner-03.webp' %}" alt="Imagen">
+                <div class="overlay">
+                    <p>Montajes y Proyectos</p>
+                    <a href="{% url 'contacto' %}" class="overlay-text">Cotizar</a>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    {% include 'informacion2.html' %}
+    
+
+    <div class="content-img">
+        <h3>NUESTROS CLIENTES</h3>
+        <div class="box1">
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente1.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente2.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente3.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente4.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente5.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente6.webp' %}" alt="Imagen">
+            </div>
+            <div class="cliente-img">
+                <img src="{% static 'images/iconos/cliente7.webp' %}" alt="Imagen">
+            </div>
+        </div>
+    </div>
+    {% include 'informacion.html' %}
+
+{% endblock %}

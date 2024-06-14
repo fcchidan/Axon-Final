@@ -1,0 +1,34 @@
+{% extends 'layout.html' %}
+
+
+{% block title %} {{title}} {% endblock %}
+
+{% block content %}
+<div class="title-registro">
+    <h1>{{title}}</h1>
+</div>
+    
+
+    {{registro_form.errors}}
+<div class="form-container-registro">
+    <form method="post" action="">
+        {% csrf_token %}
+
+        {% comment %}
+            {{registro_form.as_p}}
+        {% endcomment %}
+
+        {% for i in registro_form %}
+            <div class="form-group">
+                <label>{{i.label}}</label>
+                {{i}}
+            </div>
+        {% endfor %}
+
+        <input type="submit" value="Registrarse" class="submit-button"/>
+
+    </form>
+</div>
+    
+
+{% endblock %}
