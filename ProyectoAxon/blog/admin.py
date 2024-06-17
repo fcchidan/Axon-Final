@@ -58,3 +58,7 @@ admin.site.register(Producto, ProductoAdmin)
 admin.site.register(ElementoCarrito)
 admin.site.register(Orden, OrdenAdmin)
 admin.site.register(DireccionEnvio, DireccionEnvioAdmin)
+# Ocultar el modelo completo
+admin.site.unregister(ElementoCarrito)
+admin.site.unregister(Orden)
+admin.site.unregister(DireccionEnvio)
