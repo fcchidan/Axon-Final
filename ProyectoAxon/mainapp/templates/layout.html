@@ -122,9 +122,15 @@
         <div class="grupo-1">
             <div class="box1">
                 <h2>Categorías</h2>
-                <h4>Destacados</h4>
-                <h4>Novedades</h4>
-                <h4>Seleccionados</h4>
+                <ul class="categorias-footer">
+                    {% for i in categorias %}
+                        {% if forloop.counter <= 6 %}
+                            <li>
+                                <a href="{% url 'categoria' i.0 %}">{{ i.1 }}</a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
             </div>
             <div class="box1">
                 <h2>Contáctanos</h2>

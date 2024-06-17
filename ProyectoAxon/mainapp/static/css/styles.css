@@ -1501,6 +1501,15 @@ textarea {
     flex-wrap: wrap;
     justify-content: space-between;
 }
+.categorias-footer{
+    display: block;
+    margin: 10px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style-type: none;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
 
 .pie-pagina .box1 {
     flex: 1 1 20%;
