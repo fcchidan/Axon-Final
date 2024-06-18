@@ -81,13 +81,24 @@ class Orden(models.Model):
     direccion_envio = models.OneToOneField(DireccionEnvio, on_delete=models.CASCADE, null=True, blank=True)
     fecha_creacion = models.DateTimeField(auto_now_add=True)
     precio_total = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    
+    nombre_usuario = models.CharField(max_length=255, blank=True, null=True)
 
     def __str__(self):
-        return f"Orden #{self.id} - Usuario: {self.usuario.username}, Total: {self.precio_total}"
+        telefono = self.direccion_envio.telefono if self.direccion_envio else "No disponible"
+        correo = self.direccion_envio.correo if self.direccion_envio else "No disponible"
+        return (
+            f"Orden #{self.id} - Usuario: {self.usuario.username}, "
+            f"Nombre: {self.nombre_usuario}, "
+            f"Teléfono: {telefono}, "
+            f"Correo: {correo}, "
+            f"Total: {self.precio_total}"
+        )
 
     def obtener_productos(self):
         productos = self.elementoorden_set.all()
         return ", ".join([f"{p.cantidad} x {p.producto.titulo}" for p in productos])
+
 
 
 @receiver(post_save, sender=Orden)

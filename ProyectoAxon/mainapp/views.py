@@ -406,3 +406,10 @@ def inicio(request):
 def ultimos_productos(request):
     ultimos_productos = Producto.objects.order_by('-creado')[:5]
     return render(request, 'index.html', {'ultimos_productos': ultimos_productos})
+
+@receiver(post_save, sender=Orden)
+def set_user_info(sender, instance, created, **kwargs):
+    if created:
+        user = instance.usuario
+        instance.nombre_usuario = f"{user.first_name} {user.last_name}"
+        instance.save()

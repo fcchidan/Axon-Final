@@ -20,36 +20,39 @@ class ProductoAdmin(admin.ModelAdmin):
 
 
 class OrdenAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'direccion_envio', 'mostrar_productos', 'fecha_creacion', 'precio_total')
+    list_display = ('usuario', 'nombre_usuario', 'telefono_usuario', 'correo_usuario', 'direccion_envio', 'mostrar_productos', 'fecha_creacion', 'precio_total')
+    search_fields = ('usuario__username', 'nombre_usuario', 'direccion_envio__telefono', 'direccion_envio__correo')
+    list_filter = ('fecha_creacion',)
+    ordering = ('-fecha_creacion',)
+
+    def telefono_usuario(self, obj):
+        return obj.direccion_envio.telefono if obj.direccion_envio else "No disponible"
+
+    def correo_usuario(self, obj):
+        return obj.direccion_envio.correo if obj.direccion_envio else "No disponible"
 
     def mostrar_productos(self, obj):
-        # Obtenemos los elementos de la orden
         elementos_orden = obj.elementoorden_set.all()
-        
-        # Creamos un conjunto para almacenar los productos únicos
         productos_unicos = set()
-        
-        # Creamos una lista para almacenar las cadenas de los productos únicos
         productos_unicos_str = []
         
-        # Iteramos sobre los elementos de la orden
         for elemento in elementos_orden:
-            # Creamos una cadena para representar el elemento actual
             producto_str = f"{elemento.cantidad} x {elemento.producto.titulo}"
-            
-            # Si la cadena del producto no está en el conjunto de productos únicos, la agregamos a la lista y al conjunto
             if producto_str not in productos_unicos:
                 productos_unicos.add(producto_str)
                 productos_unicos_str.append(producto_str)
         
-        # Retornamos la lista de cadenas de productos únicos como una cadena separada por comas
         return ", ".join(productos_unicos_str)
     
     mostrar_productos.short_description = 'Productos'
+    telefono_usuario.short_description = 'Teléfono'
+    correo_usuario.short_description = 'Correo'
 
 
 class DireccionEnvioAdmin(admin.ModelAdmin):
     list_display = ('direccion', 'ciudad', 'codigo_postal', 'telefono', 'correo')
+
+
 
 
 # Register your models here.
@@ -60,5 +63,4 @@ admin.site.register(Orden, OrdenAdmin)
 admin.site.register(DireccionEnvio, DireccionEnvioAdmin)
 # Ocultar el modelo completo
 admin.site.unregister(ElementoCarrito)
-admin.site.unregister(Orden)
 admin.site.unregister(DireccionEnvio)
