@@ -25,9 +25,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g*itw42s@mvgp&u&)3-pz99_70s0hqii!#z794!$#x%l-4=8a-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+#DEBUG = True
+DEBUG = False 
 # Agregar IP 
-ALLOWED_HOSTS = ['*']
+#ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['https://axon-426916.appspot.com/','104.197.62.138']
 
 
 # Application definition
@@ -82,11 +84,22 @@ WSGI_APPLICATION = 'ProyectoAxon.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
+    }
+}"""
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'axondb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'axon-426916:northamerica-northeast1:axondb',
+        'PORT': '3306',
     }
 }
 
