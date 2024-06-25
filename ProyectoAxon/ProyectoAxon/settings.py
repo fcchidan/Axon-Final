@@ -98,8 +98,11 @@ DATABASES = {
         'NAME': 'axondb',
         'USER': 'axon',
         'PASSWORD': 'Axon2024db!',
-        'HOST': '34.152.57.93',
+        'HOST': '/cloudsql/axon-426916:northamerica-northeast1:axondb',
         'PORT': '3306',
+        'OPTIONS': {
+            'charset': 'utf8mb4',
+        },
     }
 }
 
