@@ -96,8 +96,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'axondb',
-        'USER': 'root',
-        'PASSWORD': '',
+        'USER': 'axon',
+        'PASSWORD': 'Axon2024db!',
         'HOST': 'axon-426916:northamerica-northeast1:axondb',
         'PORT': '3306',
     }
