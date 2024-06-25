@@ -1,5 +1,5 @@
 runtime: python38
-entrypoint: gunicorn -b :$PORT ProyectoAxon.wsgi
+entrypoint: gunicorn -b :$PORT ProyectoAxon.wsgi.application
 
 env_variables:
   DJANGO_SETTINGS_MODULE: 'ProyectoAxon.settings'
