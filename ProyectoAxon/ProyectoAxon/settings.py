@@ -29,7 +29,7 @@ SECRET_KEY = 'django-insecure-g*itw42s@mvgp&u&)3-pz99_70s0hqii!#z794!$#x%l-4=8a-
 DEBUG = False 
 # Agregar IP 
 #ALLOWED_HOSTS = ['*']
-ALLOWED_HOSTS = ['https://axon-426916.appspot.com/','104.197.62.138']
+ALLOWED_HOSTS = ['axon-426916.appspot.com','104.197.62.138']
 
 
 # Application definition
@@ -98,7 +98,7 @@ DATABASES = {
         'NAME': 'axondb',
         'USER': 'axon',
         'PASSWORD': 'Axon2024db!',
-        'HOST': '/cloudsql/axon-426916:northamerica-northeast1:axondb',
+        'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
             'charset': 'utf8mb4',
