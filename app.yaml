@@ -4,10 +4,10 @@ entrypoint: gunicorn -b :$PORT ProyectoAxon.wsgi.application
 env_variables:
   DJANGO_SETTINGS_MODULE: 'ProyectoAxon.settings'
   SECRET_KEY: 'django-insecure-g*itw42s@mvgp&u&)3-pz99_70s0hqii!#z794!$#x%l-4=8a-'
-  DATABASE_URL: 'mysql://root:''@/axondb?unix_socket=/cloudsql/axon-426916:northamerica-northeast1:axondb'
+  GOOGLE_CLOUD_SQL_CONNECTION_NAME: 'axon-426916:us-central1:axondb'
 
 beta_settings:
-  cloud_sql_instances: axon-426916:northamerica-northeast1:axondb
+  cloud_sql_instances: 'axon-426916:us-central1:axondb'
 
 handlers:
 - url: /static
