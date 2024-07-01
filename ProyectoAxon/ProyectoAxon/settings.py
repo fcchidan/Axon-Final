@@ -25,8 +25,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-g*itw42s@mvgp&u&)3-pz99_70s0hqii!#z794!$#x%l-4=8a-'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-#DEBUG = True
-DEBUG = False 
+DEBUG = True
+#DEBUG = False 
 # Agregar IP 
 ALLOWED_HOSTS = ['*']
 #ALLOWED_HOSTS = ['axon-426916.appspot.com','104.197.62.138']
@@ -91,7 +91,7 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
-
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -99,7 +99,17 @@ DATABASES = {
         'USER': 'axon',
         'PASSWORD': 'Axon2024db!',
         'HOST': '/cloudsql/axon-426916:us-central1:axondb',
-        'PORT': '3306',
+        'PORT': 3308,
+    }
+}"""
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'axondb',
+        'USER': 'root',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': 3308,
     }
 }
 
@@ -138,12 +148,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 
 # Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
