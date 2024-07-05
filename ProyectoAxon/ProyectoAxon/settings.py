@@ -91,17 +91,19 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }"""
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'axondb',
-        'USER': 'axon',
+        'USER': 'root',
         'PASSWORD': 'Axon2024db!',
-        'HOST': '/cloudsql/axon-426916:us-central1:axondb',
-        'PORT': 3308,
+        'HOST': '/cloudsql/axon-ingenieria-428513:us-central1:axondb',
+        'PORT': '3306',
     }
-}"""
+}
+
+"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -112,7 +114,7 @@ DATABASES = {
         'PORT': 3308,
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -171,3 +173,10 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "ventas@axoningenieria.cl"
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+#Almacenamiento Google Cloud
+INSTALLED_APPS += ['storages']
+
+DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_BUCKET_NAME = 'axon_bucket'
+STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
+GS_DEFAULT_ACL = 'publicRead'
