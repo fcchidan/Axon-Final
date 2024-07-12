@@ -84,13 +84,14 @@ WSGI_APPLICATION = 'ProyectoAxon.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
-}"""
+}
+"""
 
 DATABASES = {
     'default': {
@@ -103,7 +104,7 @@ DATABASES = {
     }
 }
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -173,6 +174,7 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = "ventas@axoningenieria.cl"
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
+"""
 #Almacenamiento Google Cloud
 INSTALLED_APPS += ['storages']
 
@@ -180,3 +182,4 @@ DEFAULT_FILE_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_BUCKET_NAME = 'axon_bucket'
 STATICFILES_STORAGE = 'storages.backends.gcloud.GoogleCloudStorage'
 GS_DEFAULT_ACL = 'publicRead'
+"""
